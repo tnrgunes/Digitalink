@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Digital Ink | Webdesign Agency</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 html{background:#000}
@@ -599,6 +600,10 @@ function initReveal() {
 
 
 
+
+// Init EmailJS
+emailjs.init('s9fW8p5qj8xqunmGQ');
+
 function submitForm(e) {
   e.preventDefault();
   var form = document.getElementById('contact-form');
@@ -608,27 +613,25 @@ function submitForm(e) {
   btn.innerText = 'Sending...';
   btn.disabled = true;
 
-  var data = new FormData(form);
+  var name    = form.querySelector('[name="name"]').value;
+  var email   = form.querySelector('[name="email"]').value;
+  var message = form.querySelector('[name="message"]').value;
+  var pkg     = document.getElementById('form-pkg-input').value;
 
-  fetch('https://tanergunes21.getform.com/v0pmr', {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
+  emailjs.send('service_sjdfupg', 'template_th90quo', {
+    name: name,
+    email: email,
+    message: message,
+    package: pkg
   })
-  .then(function(res) {
-    if (res.ok) {
-      form.style.display = 'none';
-      done.style.display = 'block';
-    } else {
-      btn.innerText = 'Send Request →';
-      btn.disabled = false;
-      alert('Something went wrong. Please try again.');
-    }
+  .then(function() {
+    form.style.display = 'none';
+    done.style.display = 'block';
   })
   .catch(function(err) {
     btn.innerText = 'Send Request →';
     btn.disabled = false;
-    alert('Could not send. Please email us at info@digitalink.nl');
+    alert('Error: ' + JSON.stringify(err));
   });
 }
 
