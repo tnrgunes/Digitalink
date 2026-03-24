@@ -45,7 +45,6 @@
 <link rel="dns-prefetch" href="https://i.postimg.cc">
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 html{background:#000}
@@ -718,9 +717,6 @@ function initReveal() {
 
 
 
-// Init EmailJS
-emailjs.init({ publicKey: 'jic2OfWM2n9vAhkzI' });
-
 function submitForm(e) {
   e.preventDefault();
   var form = document.getElementById('contact-form');
@@ -730,25 +726,34 @@ function submitForm(e) {
   btn.innerText = 'Sending...';
   btn.disabled = true;
 
-  var name    = form.querySelector('[name="name"]').value;
-  var email   = form.querySelector('[name="email"]').value;
-  var message = form.querySelector('[name="message"]').value;
-  var pkg     = document.getElementById('form-pkg-input').value;
+  var data = {
+    access_key: '816cb94a-1276-4a14-8312-965a0c59e184',
+    name:    form.querySelector('[name="name"]').value,
+    email:   form.querySelector('[name="email"]').value,
+    message: form.querySelector('[name="message"]').value,
+    package: document.getElementById('form-pkg-input').value
+  };
 
-  emailjs.send('service_990dlsq', 'template_wwcri0e', {
-    name: name,
-    email: email,
-    message: message,
-    package: pkg
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
   })
-  .then(function() {
-    form.style.display = 'none';
-    done.style.display = 'block';
+  .then(function(res) { return res.json(); })
+  .then(function(res) {
+    if (res.success) {
+      form.style.display = 'none';
+      done.style.display = 'block';
+    } else {
+      btn.innerText = 'Send Request →';
+      btn.disabled = false;
+      alert('Error: ' + res.message);
+    }
   })
-  .catch(function(err) {
+  .catch(function() {
     btn.innerText = 'Send Request →';
     btn.disabled = false;
-    alert('Error: ' + JSON.stringify(err));
+    alert('Something went wrong. Please try again.');
   });
 }
 
