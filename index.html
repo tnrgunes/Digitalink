@@ -472,6 +472,25 @@ footer img{width:46px;height:46px;border-radius:50%;background:#fff;border:1px s
 .reveal.visible{opacity:1;transform:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.reveal{opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
+
+/* mobile: never scroll sideways */
+html,body{max-width:100%;overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+.case,.sector-box,.roi,.fix,.care,.contact-grid,.hero-grid,.about-grid{min-width:0}
+@media(max-width:899px){.case{grid-template-columns:minmax(0,1fr)}}
+.case>*,.hero-grid>*,.contact-grid>*{min-width:0}
+@media(max-width:600px){
+  .btn{white-space:normal;text-align:center;line-height:1.35;max-width:100%}
+  .hero-ctas .btn{width:100%}
+  .case-body .btn{width:100%}
+  .chips span{white-space:normal}
+}
+@media(max-width:400px){
+  .brand span{display:none}
+  .lang-sw button{padding:7px 8px}
+  .topbar{padding:12px 14px}
+  .wrap{padding:0 16px}
+}
 </style>
 </head>
 <body>
