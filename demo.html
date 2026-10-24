@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Probeer het zelf — live demo | Digital Ink</title>
+<meta name="description" content="Probeer gratis een boekingssysteem met eigen beheerpaneel en meldingen, met de naam van uw eigen zaak. Live demo van Digital Ink.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://digital-ink.be/demo.html">
+<meta property="og:title" content="Probeer het zelf — boekingssysteem demo | Digital Ink">
+<meta property="og:description" content="Typ de naam van uw zaak en probeer het boekingssysteem en beheerpaneel live.">
+<meta property="og:image" content="https://i.postimg.cc/5NxHH5w4/IMG-3010.jpg">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0908;--line:rgba(212,175,55,.16);--line2:rgba(212,175,55,.38);--gold:#d4af37;--gold2:#f2e3b0;--goldgrad:linear-gradient(135deg,#e6c65a,#c9992c);
+--text:#F4EFE6;--muted:rgba(244,239,230,.66);--faint:rgba(244,239,230,.4);--serif:'Instrument Serif',Georgia,serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
+--acc:#d4af37;--acc2:#f2e3b0;--accbg:rgba(212,175,55,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--ink);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(120% 80% at 10% -10%,rgba(212,175,55,.16),transparent 60%),radial-gradient(90% 70% at 95% 5%,rgba(184,110,44,.12),transparent 55%),var(--ink);min-height:100vh;overflow-x:hidden}
+button,input,select{font-family:inherit}
+a{color:inherit}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line2);object-fit:cover}
+.brand span{font-family:var(--serif);font-size:1.2rem}
+.top-r{display:flex;gap:8px;align-items:center}
+.lang-sw{display:flex;border:1px solid rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
+.lang-sw button{background:none;border:none;color:var(--faint);font:700 10.5px var(--sans);padding:8px 10px;cursor:pointer}
+.lang-sw button.on{background:rgba(212,175,55,.16);color:var(--gold2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:14px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:transform .25s,box-shadow .25s;white-space:nowrap}
+.btn-gold{background:var(--goldgrad);color:#170f02;box-shadow:0 12px 34px rgba(212,175,55,.25)}
+.btn-gold:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border-color:var(--line2)}
+.hide-s{display:none}@media(min-width:720px){.hide-s{display:inline-flex}}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 120px}
+.intro{text-align:center;max-width:760px;margin:18px auto 26px}
+.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold2)}
+.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,6vw,3.8rem);line-height:1.02;letter-spacing:-.02em;margin:12px 0 12px}
+.intro h1 em{font-style:italic;background:linear-gradient(120deg,#b8860b,#f4e7bb 45%,#d4af37);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.intro p{color:var(--muted);font-size:1.02rem;line-height:1.65}
+
+/* setup */
+.setup{display:grid;grid-template-columns:1fr;gap:14px;align-items:end;max-width:980px;margin:0 auto 18px;padding:18px;border-radius:22px;background:rgba(28,21,13,.66);border:1px solid var(--line);backdrop-filter:blur(16px)}
+@media(min-width:820px){.setup{grid-template-columns:1.3fr 1fr auto}}
+.setup label{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--faint);margin-bottom:7px}
+.inp{width:100%;padding:13px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:var(--text);font-size:16px;outline:none}
+.inp:focus{border-color:var(--gold)}
+select.inp option{background:#15100a}
+.sw{display:flex;gap:8px}
+.sw button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
+.sw button.on{border-color:#fff}
+
+/* steps */
+.steps{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 auto 22px;max-width:980px}
+.st{display:flex;align-items:center;gap:8px;padding:9px 14px 9px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:12.5px;color:var(--muted);transition:.3s}
+.st i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-weight:800;background:rgba(255,255,255,.08);color:var(--muted)}
+.st.cur{border-color:var(--gold);color:var(--gold2);background:rgba(212,175,55,.08)}
+.st.cur i{background:var(--goldgrad);color:#170f02}
+.st.done{color:#bbf7d0;border-color:rgba(74,222,128,.4)}
+.st.done i{background:#22c55e;color:#06210f}
+
+/* stage */
+.tabs{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.tabs button{flex:1;max-width:220px;padding:12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--muted);font-weight:700;font-size:12.5px;cursor:pointer;position:relative}
+.tabs button.on{background:rgba(212,175,55,.14);border-color:var(--gold);color:var(--gold2)}
+.tabs .dot{position:absolute;top:6px;right:14px;min-width:18px;height:18px;border-radius:9px;background:#ef4444;color:#fff;font-size:10px;line-height:18px;padding:0 5px;display:none}
+@media(min-width:900px){.tabs{display:none}}
+.stage{display:grid;grid-template-columns:1fr;gap:30px;justify-items:center}
+@media(min-width:900px){.stage{grid-template-columns:1fr 1fr}}
+.pane{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
+.pane-h{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--faint);display:flex;align-items:center;gap:8px}
+.pane-h b{color:var(--gold2)}
+@media(max-width:899px){.pane{display:none}.pane.show{display:flex}}
+.phone{position:relative;width:min(100%,360px);height:720px;border-radius:50px;padding:12px;background:linear-gradient(145deg,#2a2218,#0e0b07);border:1px solid rgba(212,175,55,.3);box-shadow:0 50px 100px rgba(0,0,0,.7),inset 0 0 0 2px rgba(255,255,255,.04)}
+.phone::before{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:92px;height:26px;border-radius:14px;background:#050403;z-index:20}
+.screen{position:relative;width:100%;height:100%;border-radius:39px;overflow:hidden}
+.scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding-top:50px}
+.scroll::-webkit-scrollbar{display:none}
+
+/* CUSTOMER SITE */
+.site{background:#0f0d0c;color:#f6f2ea;font-size:13px}
+.s-hero{padding:22px 20px 26px;text-align:center;background:radial-gradient(120% 90% at 50% 0%,var(--accbg),transparent 70%)}
+.s-logo{width:64px;height:64px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:28px;color:#120c05;background:var(--acc);box-shadow:0 0 30px var(--accbg)}
+.s-name{font-family:var(--serif);font-size:27px;line-height:1.05;letter-spacing:.01em}
+.s-tag{color:rgba(246,242,234,.65);font-size:12.5px;margin-top:6px}
+.s-ann{margin:12px auto 0;display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--acc);color:var(--acc2);font-size:11px;font-weight:600}
+.s-sec{padding:16px 18px}
+.s-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--acc2);margin-bottom:10px}
+.svc{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);margin-bottom:7px;cursor:pointer;transition:.2s}
+.svc b{font-weight:600}
+.svc span{color:var(--acc2);font-weight:700}
+.svc.on{border-color:var(--acc);background:var(--accbg)}
+.cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:700;font-size:12px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal b{font-size:9px;color:rgba(246,242,234,.4);font-weight:700;padding:2px 0}
+.cal button{padding:8px 0;border-radius:9px;border:none;background:rgba(255,255,255,.05);color:#f6f2ea;font-size:12px;cursor:pointer}
+.cal button:disabled{opacity:.22;cursor:default;text-decoration:line-through}
+.cal button.full{opacity:.35;text-decoration:line-through;cursor:default}
+.cal button.on{background:var(--acc);color:#120c05;font-weight:800}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.times button{padding:10px 0;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#f6f2ea;font-weight:700;font-size:12px;cursor:pointer}
+.times button.on{border-color:var(--acc);background:var(--accbg);color:var(--acc2)}
+.times button:disabled{opacity:.25;text-decoration:line-through}
+.f{width:100%;padding:12px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:#f6f2ea;font-size:15px;margin-bottom:7px;outline:none}
+.f:focus{border-color:var(--acc)}
+.s-btn{width:100%;padding:14px;border-radius:999px;border:none;background:var(--acc);color:#120c05;font-weight:800;font-size:12px;letter-spacing:.12em;cursor:pointer;margin-top:4px}
+.s-btn:disabled{opacity:.4}
+.s-err{color:#fca5a5;font-size:11.5px;min-height:16px;margin-top:6px;text-align:center}
+.s-done{text-align:center;padding:30px 20px}
+.s-done .ok{width:58px;height:58px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:var(--accbg);border:1px solid var(--acc);color:var(--acc2);font-size:26px}
+.s-done h3{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:6px}
+.s-done p{color:rgba(246,242,234,.65)}
+.s-foot{padding:18px;text-align:center;font-size:10px;color:rgba(246,242,234,.35)}
+
+/* OWNER PANEL */
+.panel{background:#0d0a12;color:#f5f1fb;font-size:13px}
+.p-head{display:flex;align-items:center;justify-content:space-between;padding:6px 16px 10px}
+.p-head b{font-family:var(--serif);font-weight:400;font-size:22px}
+.p-head small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc2);font-weight:700}
+.p-av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#120c05;display:flex;align-items:center;justify-content:center;font-weight:800}
+.p-body{padding:4px 14px 90px}
+.p-kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.p-kpi{border-radius:14px;padding:11px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.p-kpi b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1}
+.p-kpi small{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,222,250,.5);font-weight:700}
+.p-lbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--acc2);margin:14px 2px 8px}
+.req{border-radius:14px;padding:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);margin-bottom:8px;animation:pop .45s cubic-bezier(.2,.7,.3,1)}
+.req.new{border-color:var(--acc);box-shadow:0 0 0 3px var(--accbg)}
+@keyframes pop{from{opacity:0;transform:translateY(-10px) scale(.97)}}
+.req b{display:block;font-size:13.5px}
+.req small{color:rgba(232,222,250,.6);font-size:11px}
+.req .tag{display:inline-block;margin-top:6px;padding:3px 8px;border-radius:999px;background:var(--accbg);color:var(--acc2);font-size:9.5px;font-weight:800;letter-spacing:.06em}
+.req .acts{display:flex;gap:6px;margin-top:10px}
+.req .acts button{flex:1;padding:10px;border-radius:10px;border:none;font-weight:800;font-size:10.5px;letter-spacing:.08em;cursor:pointer}
+.ok-b{background:#16a34a;color:#fff}.no-b{background:rgba(255,255,255,.08);color:rgba(232,222,250,.75)}
+.req.appr{border-color:rgba(74,222,128,.35)}
+.req .state{margin-top:8px;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.empty{text-align:center;color:rgba(232,222,250,.45);padding:22px 10px;font-size:12px}
+.p-edit label{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,222,250,.5);font-weight:700;margin:10px 2px 6px}
+.p-edit .f{background:rgba(255,255,255,.06)}
+.price-row{display:grid;grid-template-columns:1fr 84px;gap:6px}
+.save{width:100%;padding:13px;border-radius:12px;border:none;background:var(--acc);color:#120c05;font-weight:800;font-size:11.5px;letter-spacing:.1em;cursor:pointer;margin-top:10px}
+.saved{color:#86efac;font-size:11.5px;text-align:center;min-height:16px;margin-top:6px}
+.bars{display:flex;align-items:flex-end;gap:4px;height:90px;padding:8px;border-radius:12px;background:rgba(255,255,255,.04)}
+.bars i{flex:1;border-radius:3px 3px 1px 1px;background:linear-gradient(180deg,var(--acc),rgba(255,255,255,.15));transition:height .5s}
+.srcrow{display:flex;justify-content:space-between;font-size:11.5px;margin:8px 0 4px}
+.srcbar{height:5px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden}
+.srcbar i{display:block;height:100%;background:var(--acc)}
+.p-nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:10px 6px 18px;background:rgba(13,10,18,.94);border-top:1px solid rgba(255,255,255,.07);z-index:5}
+.p-nav button{background:none;border:none;color:rgba(232,222,250,.45);font-size:9.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;position:relative}
+.p-nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.p-nav button.on{color:var(--acc)}
+.p-nav em{position:absolute;top:-4px;right:2px;min-width:16px;height:16px;border-radius:8px;background:#ef4444;color:#fff;font-style:normal;font-size:9px;line-height:16px;padding:0 4px;display:none}
+/* push notification */
+.notif{position:absolute;left:10px;right:10px;top:46px;z-index:15;display:flex;gap:10px;padding:12px;border-radius:18px;background:rgba(48,40,62,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 40px rgba(0,0,0,.5);transform:translateY(-140%);opacity:0;transition:transform .5s cubic-bezier(.2,.8,.3,1.2),opacity .3s;cursor:pointer}
+.notif.show{transform:none;opacity:1}
+.notif .ap{width:34px;height:34px;flex:0 0 34px;border-radius:9px;background:var(--acc);display:flex;align-items:center;justify-content:center;color:#120c05;font-family:var(--serif);font-size:18px}
+.notif b{font-size:12px}.notif small{float:right;font-size:10px;color:rgba(255,255,255,.55)}
+.notif p{font-size:12px;color:rgba(255,255,255,.85);margin-top:2px;line-height:1.35}
+.ptoast{position:fixed;left:12px;right:12px;top:12px;z-index:100;display:flex;gap:10px;padding:13px;border-radius:18px;background:rgba(48,40,62,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 50px rgba(0,0,0,.6);transform:translateY(-160%);transition:transform .5s cubic-bezier(.2,.8,.3,1.2);cursor:pointer;max-width:420px;margin:0 auto}
+.ptoast.show{transform:none}
+.ptoast .ap{width:36px;height:36px;flex:0 0 36px;border-radius:9px;background:var(--acc);display:flex;align-items:center;justify-content:center;color:#120c05;font-family:var(--serif);font-size:18px}
+.ptoast b{font-size:12.5px}.ptoast p{font-size:12.5px;color:rgba(255,255,255,.88);margin-top:2px}.ptoast u{display:block;margin-top:6px;font-size:11px;font-weight:800;color:var(--acc2);text-decoration:none;letter-spacing:.06em}
+@media(min-width:900px){.ptoast{display:none}}
+.phone.buzz{animation:buzz .5s}
+@keyframes buzz{20%,60%{transform:translateX(-3px) rotate(-.6deg)}40%,80%{transform:translateX(3px) rotate(.6deg)}}
+/* face id lock */
+.lock{position:absolute;inset:0;z-index:12;background:radial-gradient(120% 80% at 50% 0%,#2c2340,#0d0a12 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#f5f1fb;transition:opacity .4s}
+.lock.gone{opacity:0;pointer-events:none}
+.lock .fid{width:74px;height:74px;border-radius:20px;border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.lock .fid svg{width:40px;height:40px;stroke:var(--acc);fill:none;stroke-width:1.6;stroke-linecap:round}
+.lock.scan .fid::after{content:'';position:absolute;left:0;right:0;height:3px;background:var(--acc);box-shadow:0 0 12px var(--acc);animation:scan 1s ease-in-out}
+@keyframes scan{from{top:0}to{top:100%}}
+.lock p{font-size:12px;color:rgba(232,222,250,.7)}
+.lock button{padding:11px 20px;border-radius:999px;border:1px solid var(--acc);background:none;color:var(--acc2);font-weight:800;font-size:11px;letter-spacing:.1em;cursor:pointer}
+/* final cta */
+.final{display:none;margin:30px auto 0;max-width:760px;text-align:center;padding:30px 22px;border-radius:24px;background:linear-gradient(140deg,rgba(212,175,55,.16),rgba(28,21,13,.75) 60%);border:1px solid var(--gold)}
+.final.show{display:block;animation:pop .6s}
+.final h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1.1;margin-bottom:10px}
+.final p{color:var(--muted);margin-bottom:18px}
+.fine{text-align:center;color:var(--faint);font-size:11px;margin-top:22px}
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(14,10,7,.92);border:1px solid var(--line);backdrop-filter:blur(16px)}
+.mbar .btn{flex:1;padding:13px 8px;font-size:10.5px}
+@media(min-width:900px){.mbar{display:none}}
+/* ===== MODE SWITCH + WEBSITE DEMO ===== */
+.modes{display:flex;justify-content:center;gap:6px;margin:0 auto 18px;padding:6px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);width:max-content;max-width:100%}
+.modes button{padding:12px 20px;border-radius:999px;border:none;background:none;color:var(--muted);font-weight:800;font-size:12.5px;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;gap:8px}
+.modes button i{font-style:normal;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;background:rgba(255,255,255,.08)}
+.modes button.on{background:var(--goldgrad);color:#170f02}
+.modes button.on i{background:rgba(0,0,0,.15)}
+.ws-bar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 18px;margin:0 auto 18px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.chips button{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--muted);font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.chips button.on{border-color:var(--gold);background:rgba(212,175,55,.12);color:var(--gold2)}
+.chips button svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+.ws-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--faint)}
+.browser{width:100%;max-width:1080px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid rgba(212,175,55,.28);box-shadow:0 50px 110px rgba(0,0,0,.7);background:#1b1611}
+.b-chrome{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#1d1813;border-bottom:1px solid rgba(255,255,255,.06)}
+.b-dots{display:flex;gap:6px}.b-dots i{width:11px;height:11px;border-radius:50%;background:#ff5f57}.b-dots i:nth-child(2){background:#febc2e}.b-dots i:nth-child(3){background:#28c840}
+.b-url{flex:1;max-width:460px;margin:0 auto;padding:7px 14px;border-radius:9px;background:rgba(255,255,255,.06);font-size:12px;color:rgba(244,239,230,.7);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-url b{color:#86efac;font-weight:600;margin-right:4px}
+.b-view{height:660px;overflow-y:auto;scrollbar-width:thin}
+.ws-phone{display:none;justify-content:center}
+.ws-phone .phone{height:740px}
+.dev-phone .browser{display:none}.dev-phone .ws-phone{display:flex}
+@media(max-width:760px){.browser{display:none}.ws-phone{display:flex}#devChips{display:none}}
+.ws-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 18px;margin:22px auto 0;max-width:900px;padding:18px 22px;border-radius:20px;background:linear-gradient(140deg,rgba(212,175,55,.14),rgba(28,21,13,.7) 60%);border:1px solid var(--line2);text-align:center}
+.ws-cta p{font-size:.98rem}
+.ws-cta p b{color:var(--gold2)}
+
+/* generated site (scoped .gs) */
+.gs{--bg:#0f0d0c;--fg:#f6f2ea;--mu:rgba(246,242,234,.66);--card:rgba(255,255,255,.04);--bd:rgba(255,255,255,.08);--hfont:'Instrument Serif',Georgia,serif;--rad:16px;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100%}
+.gs.fris{--bg:#faf8f5;--fg:#1d1a17;--mu:rgba(29,26,23,.62);--card:#fff;--bd:rgba(0,0,0,.08);--hfont:'Inter',system-ui,sans-serif;--rad:20px}
+.gs.bold{--bg:#111;--fg:#fff;--mu:rgba(255,255,255,.7);--card:rgba(255,255,255,.06);--bd:rgba(255,255,255,.12);--hfont:'Inter',system-ui,sans-serif;--rad:6px}
+.gs-nav{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 26px;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd)}
+.gs-logo{display:flex;align-items:center;gap:9px;font-family:var(--hfont);font-size:18px;font-weight:700}
+.gs.elegant .gs-logo{font-weight:400;font-size:20px}
+.gs-logo i{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#120c05;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:14px;font-weight:800}
+.gs.bold .gs-logo i{border-radius:6px}
+.gs-links{display:flex;gap:20px;font-size:12.5px;color:var(--mu)}
+.gs-btn{display:inline-block;padding:11px 20px;border-radius:999px;background:var(--acc);color:#120c05;font-weight:800;font-size:11.5px;letter-spacing:.06em;border:none;cursor:pointer;text-transform:uppercase}
+.gs.bold .gs-btn{border-radius:4px}
+.gs-btn.alt{background:transparent;color:var(--fg);border:1px solid var(--bd)}
+.gs-hero{position:relative;padding:80px 26px 70px;text-align:center;overflow:hidden}
+.gs-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(90% 80% at 50% 0%,var(--accbg),transparent 70%);pointer-events:none}
+.gs.bold .gs-hero{text-align:left;padding:90px 26px 80px;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 40%,#000));color:#0d0b08}
+.gs.bold .gs-hero::before{display:none}
+.gs-kick{position:relative;display:inline-block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:var(--acc);margin-bottom:14px}
+.gs.bold .gs-kick{color:#0d0b08;opacity:.75}
+.gs-hero h1{position:relative;font-family:var(--hfont);font-weight:400;font-size:clamp(34px,5.2vw,62px);line-height:1.02;letter-spacing:-.02em;max-width:760px;margin:0 auto 16px}
+.gs.fris .gs-hero h1{font-weight:800;letter-spacing:-.035em}
+.gs.bold .gs-hero h1{font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-left:0}
+.gs-hero p{position:relative;color:var(--mu);max-width:520px;margin:0 auto 26px;font-size:15px}
+.gs.bold .gs-hero p{color:rgba(13,11,8,.75);margin-left:0}
+.gs.bold .gs-hero .gs-btn{background:#0d0b08;color:#fff}
+.gs.bold .gs-hero .gs-btn.alt{background:transparent;color:#0d0b08;border-color:rgba(0,0,0,.35)}
+.gs-hero .row{position:relative;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.gs.bold .gs-hero .row{justify-content:flex-start}
+.gs-rating{position:relative;margin-top:22px;font-size:12px;color:var(--mu)}
+.gs-rating b{color:var(--acc)}
+.gs.bold .gs-rating,.gs.bold .gs-rating b{color:#0d0b08}
+.gs-sec{padding:56px 26px;max-width:1000px;margin:0 auto}
+.gs-h2{font-family:var(--hfont);font-weight:400;font-size:32px;line-height:1.1;margin-bottom:8px;text-align:center}
+.gs.fris .gs-h2,.gs.bold .gs-h2{font-weight:800;letter-spacing:-.02em}
+.gs.bold .gs-h2{text-transform:uppercase;text-align:left}
+.gs-sub{color:var(--mu);text-align:center;margin-bottom:28px}
+.gs.bold .gs-sub{text-align:left}
+.gs-svcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.gs-svc{padding:22px;border-radius:var(--rad);background:var(--card);border:1px solid var(--bd)}
+.gs-svc em{font-style:normal;font-size:22px}
+.gs-svc h4{font-size:15px;margin:10px 0 4px}
+.gs-svc b{font-family:var(--hfont);font-size:24px;color:var(--acc);font-weight:600}
+.gs-gal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gs-tile{aspect-ratio:1;border-radius:calc(var(--rad) - 4px);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:10px;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.9);position:relative;overflow:hidden}
+.gs-tile span{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:34px;opacity:.85}
+.gs-about{display:grid;grid-template-columns:1fr;gap:26px;align-items:center}
+.gs-about .pic{aspect-ratio:4/3;border-radius:var(--rad);background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 35%,#000));display:flex;align-items:center;justify-content:center;font-size:60px}
+.gs-about p{color:var(--mu)}
+.gs-revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.gs-rev{padding:20px;border-radius:var(--rad);background:var(--card);border:1px solid var(--bd);font-size:13px}
+.gs-rev .stars{color:var(--acc);letter-spacing:2px;margin-bottom:8px}
+.gs-rev p{color:var(--mu);margin-bottom:10px}
+.gs-rev b{font-size:12px}
+.gs-book{text-align:center;padding:50px 26px;margin:0 26px 40px;border-radius:calc(var(--rad) + 6px);background:linear-gradient(135deg,var(--accbg),transparent);border:1px solid var(--acc)}
+.gs-book h3{font-family:var(--hfont);font-size:28px;font-weight:400;margin-bottom:6px}
+.gs.fris .gs-book h3,.gs.bold .gs-book h3{font-weight:800}
+.gs-book p{color:var(--mu);margin-bottom:18px}
+.gs-contact{display:grid;grid-template-columns:1fr;gap:12px}
+.gs-ci{padding:16px 18px;border-radius:var(--rad);background:var(--card);border:1px solid var(--bd);font-size:13px}
+.gs-ci small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:700;margin-bottom:4px}
+.gs-map{border-radius:var(--rad);min-height:150px;background:repeating-linear-gradient(45deg,var(--card),var(--card) 12px,transparent 12px,transparent 24px),var(--accbg);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:28px}
+.gs-foot{padding:26px;text-align:center;font-size:11px;color:var(--mu);border-top:1px solid var(--bd)}
+.gs-wa{position:sticky;bottom:14px;margin:-60px 14px 0 auto;width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:4}
+.gs-wa svg{width:24px;height:24px;fill:#fff}
+/* desktop layout inside browser */
+.wide .gs-about{grid-template-columns:1fr 1fr}
+.wide .gs-contact{grid-template-columns:1fr 1fr 1.4fr}
+.narrow .gs-links{display:none}
+.narrow .gs-nav{padding:12px 16px}
+.narrow .gs-hero{padding:46px 18px 44px}
+.narrow .gs-hero h1{font-size:34px}
+.narrow .gs-sec{padding:38px 16px}
+.narrow .gs-gal{grid-template-columns:repeat(2,1fr)}
+.narrow .gs-book{margin:0 14px 30px;padding:34px 18px}
+.narrow .gs-h2{font-size:26px}
+
+/* ===== MOBILE: easy mode (no nested scrolling, sticky controls) ===== */
+@media(max-width:760px){
+  .intro{margin:6px auto 16px}.intro h1{font-size:2.1rem}.intro p{font-size:.9rem}
+  .modes{width:100%}.modes button{flex:1;justify-content:center;padding:11px 8px;font-size:12px}
+  .setup{grid-template-columns:1fr 1fr;gap:10px;padding:14px;border-radius:18px}
+  .setup>div:first-child{grid-column:1/-1}
+  .setup .inp{padding:11px 12px}
+  .sw{flex-wrap:wrap;gap:6px}.sw button{width:26px;height:26px}
+  .ws-bar{position:sticky;top:0;z-index:40;margin:0 -20px 14px;padding:10px 12px;background:rgba(11,9,8,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .ws-bar .ws-lbl{display:none}
+  .ws-bar{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}.ws-bar::-webkit-scrollbar{display:none}.ws-bar .chips{flex-wrap:nowrap}.chips button{white-space:nowrap}
+  .chips button{padding:9px 12px;font-size:11.5px}
+  .ws-phone .phone{height:auto;padding:0;border:1px solid rgba(212,175,55,.25);border-radius:22px;background:none;box-shadow:0 20px 50px rgba(0,0,0,.5);width:100%}
+  .ws-phone .phone::before{display:none}
+  .ws-phone .screen{height:auto;border-radius:21px}
+  .ws-phone .scroll{position:relative;inset:auto;overflow:visible;padding-top:0!important}
+  .ws-phone .gs-nav{position:relative}
+  .ws-cta{flex-direction:column}
+  .ws-cta .btn{width:100%}
+}
+@media(max-width:899px){
+  .tabs{position:sticky;top:8px;z-index:40;padding:6px;border-radius:999px;background:rgba(11,9,8,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.07);max-width:420px;margin:0 auto 14px}
+  .tabs button{max-width:none}
+  .steps{gap:6px}.st{font-size:11.5px;padding:7px 11px 7px 7px}
+  .pane-h{display:none}
+  .stage .phone{height:auto;width:100%;padding:0;border:1px solid rgba(212,175,55,.25);border-radius:24px;background:none}
+  .stage .phone::before{display:none}
+  .stage .screen{height:auto;min-height:600px;border-radius:23px}
+  .stage .scroll{position:relative;inset:auto;overflow:visible;padding-top:12px}
+  .p-nav{position:sticky;bottom:0}
+  .notif{display:none}
+  .lock{position:absolute}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html"><img src="https://i.postimg.cc/521ZqS50/IMG-2978.png" alt="Digital Ink"><span>Digital Ink</span></a>
+  <div class="top-r">
+    <div class="lang-sw"><button data-lang="nl" class="on">NL</button><button data-lang="en">EN</button><button data-lang="fr">FR</button></div>
+    <a class="btn btn-gold hide-s" id="topCta" href="index.html#contact" data-i="cta"></a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="eyebrow" data-i="eyebrow"></span>
+    <h1 data-i="title"></h1>
+    <p data-i="lead"></p>
+  </div>
+
+  <div class="modes" id="modes"><button data-mode="site" class="on"><i>1</i><span data-i="mSite"></span></button><button data-mode="book"><i>2</i><span data-i="mBook"></span></button></div>
+  <div class="setup">
+    <div><label data-i="lName"></label><input class="inp" id="bizName" maxlength="40" autocomplete="organization"></div>
+    <div><label data-i="lSector"></label><select class="inp" id="bizSector"></select></div>
+    <div><label data-i="lColor"></label><div class="sw" id="swatches"></div></div>
+  </div>
+
+  <div id="modeSite">
+    <div class="ws-bar">
+      <span class="ws-lbl" data-i="lType"></span>
+      <div class="chips" id="typeChips"></div>
+      <span class="ws-lbl" data-i="lStyle"></span>
+      <div class="chips" id="styleChips"></div>
+      <div class="chips" id="devChips">
+        <button data-dev="wide" class="on"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg><span data-i="dComp"></span></button>
+        <button data-dev="narrow"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span data-i="dPhone"></span></button>
+      </div>
+    </div>
+    <div id="wsStage">
+      <div class="browser"><div class="b-chrome"><div class="b-dots"><i></i><i></i><i></i></div><div class="b-url" id="wsUrl"></div></div><div class="b-view" id="wsWide"></div></div>
+      <div class="ws-phone"><div class="phone"><div class="screen"><div class="scroll" id="wsNarrow" style="padding-top:44px"></div></div></div></div>
+    </div>
+    <div class="ws-cta"><p id="wsCtaTxt"></p><button class="btn btn-ghost" data-mode="book" data-i="wsTry"></button><a class="btn btn-gold" id="wsCta" href="index.html#contact" data-i="finCta"></a></div>
+  </div>
+  <div id="modeBook" style="display:none">
+  <div class="steps" id="steps"></div>
+
+  <div class="tabs"><button data-pane="site" class="on" data-i="tabSite"></button><button data-pane="panel"><span data-i="tabPanel"></span><span class="dot" id="tabDot">1</span></button></div>
+
+  <div class="stage">
+    <div class="pane show" id="paneSite">
+      <div class="pane-h"><span data-i="seeClient"></span></div>
+      <div class="phone"><div class="screen site"><div class="scroll" id="siteScroll"></div></div></div>
+    </div>
+    <div class="pane" id="panePanel">
+      <div class="pane-h"><span data-i="seeYou"></span></div>
+      <div class="phone" id="ownerPhone"><div class="screen panel">
+        <div class="lock gone" id="lock" style="display:none"><div class="fid"><svg viewBox="0 0 24 24"><path d="M7 3H5a2 2 0 0 0-2 2v2M17 3h2a2 2 0 0 1 2 2v2M7 21H5a2 2 0 0 1-2-2v-2M17 21h2a2 2 0 0 0 2-2v-2"/><path d="M9 9v1M15 9v1M12 9v4h-1M9 16c1.5 1 4.5 1 6 0"/></svg></div><p data-i="lockTxt"></p><button id="unlock" data-i="unlock"></button></div>
+        <div class="notif" id="notif"><div class="ap" id="notifAp">S</div><div style="flex:1"><b id="notifName">Studio</b> <small data-i="now"></small><p id="notifTxt"></p></div></div>
+        <div class="scroll" id="panelScroll"></div>
+        <nav class="p-nav" id="pNav"></nav>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="final" id="final">
+    <span class="eyebrow" data-i="finEyebrow"></span>
+    <h2 id="finTitle"></h2>
+    <p data-i="finText"></p>
+    <a class="btn btn-gold" id="finCta" href="index.html#contact" data-i="finCta"></a>
+  </div>
+  </div>
+  <p class="fine" data-i="fine"></p>
+</div>
+<div class="ptoast" id="ptoast"><div class="ap" id="ptAp">S</div><div style="flex:1"><b id="ptName"></b><p id="ptTxt"></p><u data-i="ptGo"></u></div></div>
+<div class="mbar"><a class="btn btn-ghost" href="index.html" data-i="back"></a><a class="btn btn-gold" id="mCta" href="index.html#contact" data-i="cta"></a></div>
+
+<script>
+var SECTORS={
+ tattoo:{n:'Studio Luna Tattoo',e:'✒',svc:[['Small tattoo',80],['Medium tattoo',150],['Large tattoo',300]]},
+ hair:{n:'Kapsalon Lisa',e:'✂',svc:[['Knippen',32],['Knippen + kleuren',78],['Baard trimmen',18]]},
+ beauty:{n:'Beauty by Nora',e:'✿',svc:[['Gelaatsverzorging',65],['Manicure',35],['Wimperlift',55]]},
+ coach:{n:'Praktijk Sereen',e:'☾',svc:[['Intakegesprek',60],['Sessie (60 min)',75],['Online sessie',65]]},
+ food:{n:'Bistro De Linde',e:'♨',svc:[['Lunch',18],['Diner',32],['Groepsmenu p.p.',45]]},
+ build:{n:'Bouwwerken Peeters',e:'⌂',svc:[['Renovatie (per dag)',420],['Badkamer op maat',6500],['Plaatsbezoek',0]]},
+ shop:{n:'Boetiek Mila',e:'◈',svc:[['Linnen hemd',59],['Leren tas',129],['Zijden sjaal',39]]},
+ photo:{n:'Studio Noor Fotografie',e:'◉',svc:[['Portretshoot',149],['Huwelijksreportage',1450],['Bedrijfsshoot',290]]},
+ garage:{n:'Garage Van Dyck',e:'⚙',svc:[['Onderhoudsbeurt',179],['Bandenwissel',49],['Keuringsklaar maken',89]]},
+ health:{n:'Kinepraktijk Vita',e:'✚',svc:[['Kinesitherapie (30 min)',28],['Sportmassage',55],['Intake',40]]},
+ other:{n:'Uw Zaak',e:'★',svc:[['Dienst 1',50],['Dienst 2',95],['Dienst 3',150]]}
+};
+var SVC_TR={en:{'Renovatie (per dag)':'Renovation (per day)','Badkamer op maat':'Custom bathroom','Plaatsbezoek':'Site visit','Linnen hemd':'Linen shirt','Leren tas':'Leather bag','Zijden sjaal':'Silk scarf','Portretshoot':'Portrait shoot','Huwelijksreportage':'Wedding photography','Bedrijfsshoot':'Business shoot','Onderhoudsbeurt':'Service','Bandenwissel':'Tyre change','Keuringsklaar maken':'Inspection prep','Kinesitherapie (30 min)':'Physiotherapy (30 min)','Sportmassage':'Sports massage','Dienst 1':'Service 1','Dienst 2':'Service 2','Dienst 3':'Service 3','Knippen':'Haircut','Knippen + kleuren':'Cut + colour','Baard trimmen':'Beard trim','Gelaatsverzorging':'Facial','Wimperlift':'Lash lift','Intakegesprek':'Intake session','Sessie (60 min)':'Session (60 min)','Online sessie':'Online session','Diner':'Dinner','Groepsmenu p.p.':'Group menu p.p.'},
+ fr:{'Renovatie (per dag)':'Rénovation (par jour)','Badkamer op maat':'Salle de bain sur mesure','Plaatsbezoek':'Visite sur place','Linnen hemd':'Chemise en lin','Leren tas':'Sac en cuir','Zijden sjaal':'Foulard en soie','Portretshoot':'Séance portrait','Huwelijksreportage':'Reportage mariage','Bedrijfsshoot':'Shooting entreprise','Onderhoudsbeurt':'Entretien','Bandenwissel':'Changement de pneus','Keuringsklaar maken':'Préparation contrôle technique','Kinesitherapie (30 min)':'Kinésithérapie (30 min)','Sportmassage':'Massage sportif','Dienst 1':'Service 1','Dienst 2':'Service 2','Dienst 3':'Service 3','Knippen':'Coupe','Knippen + kleuren':'Coupe + couleur','Baard trimmen':'Taille de barbe','Gelaatsverzorging':'Soin du visage','Wimperlift':'Rehaussement de cils','Intakegesprek':'Premier entretien','Sessie (60 min)':'Séance (60 min)','Online sessie':'Séance en ligne','Small tattoo':'Petit tatouage','Medium tattoo':'Tatouage moyen','Large tattoo':'Grand tatouage','Lunch':'Déjeuner','Diner':'Dîner','Groepsmenu p.p.':'Menu groupe p.p.'}};
+var COLORS=[['#d4af37','#f2e3b0'],['#e8a0b4','#fbd5df'],['#34d399','#bbf7d0'],['#60a5fa','#cfe3ff'],['#a78bfa','#e2d7ff'],['#f97316','#fed7aa']];
+var L={
+nl:{cta:'Gratis voorstel',back:'← Terug',eyebrow:'LIVE DEMO · PROBEER HET ZELF',title:'Zie <em>uw eigen</em> website, nu meteen.',lead:'Typ de naam van uw zaak en kies uw sector en kleur. U ziet meteen uw website in drie stijlen, en kunt daarna zelf het boekingssysteem uitproberen.',
+ lName:'Naam van uw zaak',lSector:'Sector',lColor:'Kleur',sectors:{tattoo:'Tattoo studio',hair:'Kapsalon',beauty:'Schoonheidssalon',coach:'Coach / therapeut',food:'Restaurant / bistro',build:'Bouw & renovatie',shop:'Winkel / boetiek',photo:'Fotograaf',garage:'Garage',health:'Kinesist / praktijk',other:'Andere zaak'},
+ steps:['Boek een afspraak als klant','Keur de aanvraag goed','Pas een prijs aan'],
+ tabSite:'Klant',tabPanel:'Eigenaar',seeClient:'Wat <b>uw klant</b> ziet',seeYou:'Wat <b>u</b> ziet',
+ tagline:{tattoo:'Fine line, old school & realism',hair:'Knippen, kleuren en verzorgen',beauty:'Verzorging met aandacht',coach:'Rust, groei en balans',food:'Seizoensgebonden keuken',build:'Renovatie en nieuwbouw',shop:'Mode en accessoires',photo:'Portret, huwelijk en bedrijf',garage:'Onderhoud en herstellingen',health:'Beweging en herstel',other:'Kwaliteit en service'},
+ ann:'Nieuw: online boeken 24/7',sChoose:'1 · Kies een dienst',sDay:'2 · Kies een dag',sTime:'3 · Kies een uur',sYou:'4 · Uw gegevens',fName:'Uw naam',fPhone:'Telefoon',send:'VERSTUUR AANVRAAG',errSvc:'Kies eerst een dienst, dag en uur.',errName:'Vul uw naam in.',
+ doneT:'Aanvraag verstuurd!',doneP:'U krijgt een bevestiging zodra de zaak uw afspraak goedkeurt.',again:'Nog een afspraak boeken',foot:'Demo-website gemaakt door Digital Ink',
+ days:['ma','di','wo','do','vr','za','zo'],months:['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'],
+ ptGo:'Tik om uw paneel te openen →',lockTxt:'Beheerpaneel vergrendeld',unlock:'ONTGRENDELEN MET FACE ID',now:'nu',notifTxt:function(n,s,d,t){return 'Nieuwe aanvraag: '+n+' · '+s+', '+d+' om '+t},
+ navReq:'Aanvragen',navAgenda:'Agenda',navSite:'Website',navStats:'Stats',hello:'Goedemiddag',
+ kVisits:'Bezoekers vandaag',kReq:'Nieuwe aanvragen',kWeek:'Afspraken deze week',kAvg:'Gem. tijd op site',newReq:'Nieuwe aanvragen',noReq:'Geen nieuwe aanvragen. Boek er links een!',
+ approve:'GOEDKEUREN',decline:'WEIGEREN',approved:'✓ Goedgekeurd · klant krijgt bericht',declined:'Geweigerd',agendaT:'Komende afspraken',noAgenda:'Nog geen goedgekeurde afspraken.',
+ editT:'Website aanpassen',eTag:'Ondertitel',eAnn:'Aankondiging',ePrices:'Prijzen',saveB:'OPSLAAN',savedT:'✓ Opgeslagen, kijk links: uw site is al aangepast!',
+ statsT:'Laatste 7 dagen',srcT:'Waar komen bezoekers vandaan?',direct:'Rechtstreeks',
+ finEyebrow:'DIT KAN VAN U ZIJN',finTitle:function(n){return 'Zo\'n systeem voor <em>'+n+'</em>?'},finText:'Wij bouwen het op maat, met uw logo, uw diensten en uw kleuren. Gratis voorstel binnen 24 uur.',finCta:'Ja, maak dit voor mijn zaak →',
+ fine:'Demo met fictieve gegevens. Er wordt niets verstuurd of opgeslagen.',prefill:function(n,s){return 'Ik heb de demo geprobeerd voor "'+n+'" ('+s+') en wil graag een voorstel.'}},
+en:{cta:'Free proposal',back:'← Back',eyebrow:'LIVE DEMO · TRY IT YOURSELF',title:'See <em>your own</em> website, right now.',lead:'Type your business name and pick your sector and colour. You instantly see your website in three styles, and can then try the booking system yourself.',
+ lName:'Your business name',lSector:'Sector',lColor:'Colour',sectors:{tattoo:'Tattoo studio',hair:'Hair salon',beauty:'Beauty salon',coach:'Coach / therapist',food:'Restaurant / bistro',build:'Construction & renovation',shop:'Shop / boutique',photo:'Photographer',garage:'Garage',health:'Physio / practice',other:'Other business'},
+ steps:['Book an appointment as a client','Approve the request','Change a price'],
+ tabSite:'Client',tabPanel:'Owner',seeClient:'What <b>your client</b> sees',seeYou:'What <b>you</b> see',
+ tagline:{tattoo:'Fine line, old school & realism',hair:'Cuts, colour and care',beauty:'Care with attention',coach:'Calm, growth and balance',food:'Seasonal kitchen',build:'Renovation and new builds',shop:'Fashion and accessories',photo:'Portrait, wedding and business',garage:'Service and repairs',health:'Movement and recovery',other:'Quality and service'},
+ ann:'New: book online 24/7',sChoose:'1 · Choose a service',sDay:'2 · Choose a day',sTime:'3 · Choose a time',sYou:'4 · Your details',fName:'Your name',fPhone:'Phone',send:'SEND REQUEST',errSvc:'Choose a service, day and time first.',errName:'Please enter your name.',
+ doneT:'Request sent!',doneP:'You will get a confirmation as soon as the business approves your appointment.',again:'Book another appointment',foot:'Demo website made by Digital Ink',
+ days:['Mo','Tu','We','Th','Fr','Sa','Su'],months:['January','February','March','April','May','June','July','August','September','October','November','December'],
+ ptGo:'Tap to open your panel →',lockTxt:'Admin panel locked',unlock:'UNLOCK WITH FACE ID',now:'now',notifTxt:function(n,s,d,t){return 'New request: '+n+' · '+s+', '+d+' at '+t},
+ navReq:'Requests',navAgenda:'Agenda',navSite:'Website',navStats:'Stats',hello:'Good afternoon',
+ kVisits:'Visitors today',kReq:'New requests',kWeek:'Bookings this week',kAvg:'Avg. time on site',newReq:'New requests',noReq:'No new requests. Book one on the left!',
+ approve:'APPROVE',decline:'DECLINE',approved:'✓ Approved · client gets a message',declined:'Declined',agendaT:'Upcoming appointments',noAgenda:'No approved appointments yet.',
+ editT:'Edit website',eTag:'Subtitle',eAnn:'Announcement',ePrices:'Prices',saveB:'SAVE',savedT:'✓ Saved, look left: your site is already updated!',
+ statsT:'Last 7 days',srcT:'Where do visitors come from?',direct:'Direct',
+ finEyebrow:'THIS CAN BE YOURS',finTitle:function(n){return 'A system like this for <em>'+n+'</em>?'},finText:'We build it custom, with your logo, your services and your colours. Free proposal within 24 hours.',finCta:'Yes, build this for my business →',
+ fine:'Demo with fictional data. Nothing is sent or stored.',prefill:function(n,s){return 'I tried the demo for "'+n+'" ('+s+') and would like a proposal.'}},
+fr:{cta:'Devis gratuit',back:'← Retour',eyebrow:'DÉMO EN DIRECT · ESSAYEZ VOUS-MÊME',title:'Découvrez <em>votre propre</em> site, tout de suite.',lead:'Tapez le nom de votre entreprise, choisissez votre secteur et votre couleur. Vous voyez aussitôt votre site en trois styles, puis vous pouvez essayer la réservation.',
+ lName:'Nom de votre entreprise',lSector:'Secteur',lColor:'Couleur',sectors:{tattoo:'Studio de tatouage',hair:'Salon de coiffure',beauty:'Institut de beauté',coach:'Coach / thérapeute',food:'Restaurant / bistro',build:'Construction & rénovation',shop:'Boutique',photo:'Photographe',garage:'Garage',health:'Kiné / cabinet',other:'Autre activité'},
+ steps:['Réservez comme un client','Acceptez la demande','Modifiez un prix'],
+ tabSite:'Client',tabPanel:'Propriétaire',seeClient:'Ce que voit <b>votre client</b>',seeYou:'Ce que <b>vous</b> voyez',
+ tagline:{tattoo:'Fine line, old school & réalisme',hair:'Coupe, couleur et soins',beauty:'Des soins attentionnés',coach:'Calme, croissance et équilibre',food:'Cuisine de saison',build:'Rénovation et construction',shop:'Mode et accessoires',photo:'Portrait, mariage et entreprise',garage:'Entretien et réparations',health:'Mouvement et récupération',other:'Qualité et service'},
+ ann:'Nouveau : réservez en ligne 24h/24',sChoose:'1 · Choisissez une prestation',sDay:'2 · Choisissez un jour',sTime:'3 · Choisissez une heure',sYou:'4 · Vos coordonnées',fName:'Votre nom',fPhone:'Téléphone',send:'ENVOYER LA DEMANDE',errSvc:'Choisissez d\'abord une prestation, un jour et une heure.',errName:'Indiquez votre nom.',
+ doneT:'Demande envoyée !',doneP:'Vous recevrez une confirmation dès que l\'entreprise aura accepté.',again:'Réserver un autre rendez-vous',foot:'Site de démo réalisé par Digital Ink',
+ days:['lu','ma','me','je','ve','sa','di'],months:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+ ptGo:'Touchez pour ouvrir votre panneau →',lockTxt:'Panneau verrouillé',unlock:'DÉVERROUILLER AVEC FACE ID',now:'maint.',notifTxt:function(n,s,d,t){return 'Nouvelle demande : '+n+' · '+s+', '+d+' à '+t},
+ navReq:'Demandes',navAgenda:'Agenda',navSite:'Site',navStats:'Stats',hello:'Bonjour',
+ kVisits:'Visiteurs aujourd\'hui',kReq:'Nouvelles demandes',kWeek:'RDV cette semaine',kAvg:'Temps moyen',newReq:'Nouvelles demandes',noReq:'Aucune nouvelle demande. Réservez-en une à gauche !',
+ approve:'ACCEPTER',decline:'REFUSER',approved:'✓ Accepté · le client est prévenu',declined:'Refusé',agendaT:'Prochains rendez-vous',noAgenda:'Aucun rendez-vous accepté.',
+ editT:'Modifier le site',eTag:'Sous-titre',eAnn:'Annonce',ePrices:'Prix',saveB:'ENREGISTRER',savedT:'✓ Enregistré, regardez à gauche : votre site est déjà à jour !',
+ statsT:'7 derniers jours',srcT:'D\'où viennent les visiteurs ?',direct:'Direct',
+ finEyebrow:'ÇA PEUT ÊTRE À VOUS',finTitle:function(n){return 'Un tel système pour <em>'+n+'</em> ?'},finText:'Nous le construisons sur mesure, avec votre logo, vos prestations et vos couleurs. Devis gratuit sous 24 heures.',finCta:'Oui, faites-le pour mon entreprise →',
+ fine:'Démo avec des données fictives. Rien n\'est envoyé ni enregistré.',prefill:function(n,s){return 'J\'ai essayé la démo pour « '+n+' » ('+s+') et je souhaite un devis.'}}
+};
+var lang='nl',T=L.nl,S={sector:'tattoo',name:'',color:0,tag:null,ann:null,prices:null,svc:null,day:null,time:null,done:false,unlocked:false,ptab:'req',reqs:[],agenda:[],visits:37,steps:[0,0,0],booked:{}};
+function $(s){return document.querySelector(s)}function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function bizName(){return S.name.trim()||SECTORS[S.sector].n}
+function svcName(n){return (SVC_TR[lang]&&SVC_TR[lang][n])||n}
+function svcs(){var b=SECTORS[S.sector].svc;return b.map(function(x,i){return [svcName(x[0]),S.prices?S.prices[i]:x[1]]})}
+function fmtDay(d){return T.days[(d.getDay()+6)%7]+' '+d.getDate()+' '+(lang==='fr'?T.months[d.getMonth()]:T.months[d.getMonth()].slice(0,3))}
+function applyColor(){var c=COLORS[S.color];var r=document.documentElement.style;r.setProperty('--acc',c[0]);r.setProperty('--acc2',c[1]);
+  var h=c[0].replace('#','');var rgb=[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];r.setProperty('--accbg','rgba('+rgb.join(',')+',.16)')}
+
+function renderStatic(){
+  T=L[lang];document.documentElement.lang=lang;
+  $$('[data-i]').forEach(function(e){var v=T[e.getAttribute('data-i')];if(typeof v==='string')e.innerHTML=v});
+  $$('.lang-sw button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lang')===lang)});
+  $('#bizName').placeholder=SECTORS[S.sector].n;
+  $('#bizSector').innerHTML=Object.keys(SECTORS).map(function(k){return '<option value="'+k+'"'+(k===S.sector?' selected':'')+'>'+T.sectors[k]+'</option>'}).join('');
+  $('#swatches').innerHTML=COLORS.map(function(c,i){return '<button style="background:'+c[0]+'" data-c="'+i+'" class="'+(i===S.color?'on':'')+'" aria-label="color '+(i+1)+'"></button>'}).join('');
+  renderSteps();renderSite();renderPanel();renderFinal();renderWS();
+}
+function renderSteps(){var cur=S.steps.indexOf(0);
+  $('#steps').innerHTML=T.steps.map(function(s,i){return '<div class="st '+(S.steps[i]?'done':(i===cur?'cur':''))+'"><i>'+(S.steps[i]?'✓':(i+1))+'</i>'+s+'</div>'}).join('')}
+function doneStep(i){if(S.steps[i])return;S.steps[i]=1;renderSteps();if(S.steps.every(Boolean))setTimeout(function(){$('#final').classList.add('show');$('#final').scrollIntoView({behavior:'smooth',block:'center'})},900)}
+
+/* ---------- customer site ---------- */
+function days14(){var out=[],d=new Date();d.setHours(0,0,0,0);for(var i=1;out.length<14;i++){var x=new Date(d);x.setDate(d.getDate()+i);out.push(x)}return out}
+function renderSite(){
+  var sec=SECTORS[S.sector],box=$('#siteScroll'),top=box.scrollTop;
+  if(S.done){box.innerHTML='<div class="s-hero"><div class="s-logo">'+esc(bizName().charAt(0).toUpperCase())+'</div><div class="s-name">'+esc(bizName())+'</div></div><div class="s-done"><div class="ok">✓</div><h3>'+T.doneT+'</h3><p>'+T.doneP+'</p><button class="s-btn" style="margin-top:18px" id="again">'+T.again+'</button></div><div class="s-foot">'+T.foot+'</div>';return}
+  var list=svcs(),ds=days14();
+  var cal='<div class="cal">'+T.days.map(function(d){return '<b>'+d+'</b>'}).join('');
+  var lead=(ds[0].getDay()+6)%7;for(var k=0;k<lead;k++)cal+='<span></span>';
+  ds.forEach(function(d){var key=d.toISOString().slice(0,10),closed=d.getDay()===0||d.getDay()===1,full=(S.booked[key]||0)>=3;
+    cal+='<button data-day="'+key+'"'+(closed?' disabled':'')+' class="'+(full?'full':'')+(S.day===key?' on':'')+'">'+d.getDate()+'</button>'});
+  cal+='</div>';
+  var times=['10:00','11:30','13:00','14:30','16:00','17:30'];
+  var taken=S.agenda.concat(S.reqs).filter(function(r){return r.day===S.day&&r.state!=='no'}).map(function(r){return r.time});
+  box.innerHTML='<div class="s-hero"><div class="s-logo">'+esc(bizName().charAt(0).toUpperCase())+'</div><div class="s-name">'+esc(bizName())+'</div><div class="s-tag">'+esc(S.tag!=null?S.tag:T.tagline[S.sector])+'</div>'+((S.ann!=null?S.ann:T.ann)?'<div class="s-ann">'+esc(S.ann!=null?S.ann:T.ann)+'</div>':'')+'</div>'
+   +'<div class="s-sec"><div class="s-lbl">'+T.sChoose+'</div>'+list.map(function(s,i){return '<div class="svc'+(S.svc===i?' on':'')+'" data-svc="'+i+'"><b>'+esc(s[0])+'</b><span>€'+s[1]+'</span></div>'}).join('')+'</div>'
+   +'<div class="s-sec"><div class="s-lbl">'+T.sDay+'</div><div class="cal-h"><span>'+T.months[ds[0].getMonth()]+' '+ds[0].getFullYear()+'</span></div>'+cal
+   +(S.day?'<div class="s-lbl" style="margin-top:14px">'+T.sTime+'</div><div class="times">'+times.map(function(t){return '<button data-time="'+t+'"'+(taken.indexOf(t)>=0?' disabled':'')+' class="'+(S.time===t?'on':'')+'">'+t+'</button>'}).join('')+'</div>':'')+'</div>'
+   +'<div class="s-sec"><div class="s-lbl">'+T.sYou+'</div><input class="f" id="cName" placeholder="'+T.fName+'" maxlength="40" autocomplete="off"><input class="f" id="cPhone" placeholder="'+T.fPhone+'" inputmode="tel" autocomplete="off"><button class="s-btn" id="cSend">'+T.send+'</button><div class="s-err" id="cErr"></div></div>'
+   +'<div class="s-foot">'+T.foot+'</div>';
+  box.scrollTop=top;
+}
+function sendBooking(){
+  var name=($('#cName').value||'').trim(),err=$('#cErr');
+  if(S.svc==null||!S.day||!S.time){err.textContent=T.errSvc;return}
+  if(name.length<2){err.textContent=T.errName;return}
+  var s=svcs()[S.svc],d=new Date(S.day+'T12:00:00');
+  var r={id:Date.now(),name:name,svc:s[0],price:s[1],day:S.day,dayTxt:fmtDay(d),time:S.time,state:'new'};
+  S.reqs.unshift(r);S.visits+=1;S.done=true;var keep=S.day;S.svc=null;S.day=null;S.time=null;
+  renderSite();doneStep(0);
+  setTimeout(function(){notify(r)},700);
+}
+function notify(r){
+  var n=$('#notif');$('#notifAp').textContent=bizName().charAt(0).toUpperCase();$('#notifName').textContent=bizName();
+  $('#notifTxt').textContent=T.notifTxt(r.name,r.svc,r.dayTxt,r.time);
+  n.classList.add('show');var ph=$('#ownerPhone');ph.classList.remove('buzz');void ph.offsetWidth;ph.classList.add('buzz');
+  try{if(navigator.vibrate)navigator.vibrate([60,40,60])}catch(e){}
+  clearTimeout(window._nt);window._nt=setTimeout(function(){n.classList.remove('show')},5200);
+  if(innerWidth<900){var pt=$('#ptoast');$('#ptAp').textContent=bizName().charAt(0).toUpperCase();$('#ptName').textContent=bizName();$('#ptTxt').textContent=$('#notifTxt').textContent;pt.classList.add('show');clearTimeout(window._pt);window._pt=setTimeout(function(){pt.classList.remove('show')},7000)}
+  S.ptab='req';renderPanel();
+  if(innerWidth<900){var dot=$('#tabDot');dot.style.display='block';dot.textContent=S.reqs.filter(function(x){return x.state==='new'}).length}
+}
+
+/* ---------- owner panel ---------- */
+var NAVI={req:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',agenda:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',site:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',stats:'<path d="M3 3v18h18"/><path d="M7 16v-5M12 16V7M17 16v-3"/>'};
+function renderPanel(){
+  var newN=S.reqs.filter(function(r){return r.state==='new'}).length;
+  $('#pNav').innerHTML=['req','agenda','site','stats'].map(function(k){var lab={req:T.navReq,agenda:T.navAgenda,site:T.navSite,stats:T.navStats}[k];
+    return '<button data-ptab="'+k+'" class="'+(S.ptab===k?'on':'')+'"><svg viewBox="0 0 24 24">'+NAVI[k]+'</svg>'+lab+(k==='req'&&newN?'<em style="display:block">'+newN+'</em>':'')+'</button>'}).join('');
+  var h='<div class="p-head"><div><small>'+T.hello+'</small><b>'+esc(bizName())+'</b></div><div class="p-av">'+esc(bizName().charAt(0).toUpperCase())+'</div></div><div class="p-body">';
+  if(S.ptab==='req'){
+    h+='<div class="p-kpis"><div class="p-kpi"><b>'+S.visits+'</b><small>'+T.kVisits+'</small></div><div class="p-kpi"><b>'+newN+'</b><small>'+T.kReq+'</small></div></div><div class="p-lbl">'+T.newReq+'</div>';
+    var list=S.reqs.filter(function(r){return r.state!=='gone'});
+    h+=list.length?list.map(reqCard).join(''):'<div class="empty">'+T.noReq+'</div>';
+  }else if(S.ptab==='agenda'){
+    h+='<div class="p-lbl">'+T.agendaT+'</div>'+(S.agenda.length?S.agenda.map(function(r){return '<div class="req appr"><b>'+esc(r.name)+'</b><small>'+esc(r.dayTxt)+' · '+r.time+' · '+esc(r.svc)+'</small></div>'}).join(''):'<div class="empty">'+T.noAgenda+'</div>');
+  }else if(S.ptab==='site'){
+    var list2=svcs();
+    h+='<div class="p-lbl">'+T.editT+'</div><div class="p-edit"><label>'+T.eTag+'</label><input class="f" id="eTag" value="'+esc(S.tag!=null?S.tag:T.tagline[S.sector])+'" maxlength="60"><label>'+T.eAnn+'</label><input class="f" id="eAnn" value="'+esc(S.ann!=null?S.ann:T.ann)+'" maxlength="50"><label>'+T.ePrices+'</label>'
+      +list2.map(function(s,i){return '<div class="price-row"><input class="f" value="'+esc(s[0])+'" disabled><input class="f" id="eP'+i+'" type="number" min="0" max="9999" value="'+s[1]+'"></div>'}).join('')
+      +'<button class="save" id="eSave">'+T.saveB+'</button><div class="saved" id="eSaved"></div></div>';
+  }else{
+    var base=[22,31,27,40,35,44,S.visits];var mx=Math.max.apply(null,base);
+    h+='<div class="p-kpis"><div class="p-kpi"><b>'+(base.reduce(function(a,b){return a+b},0))+'</b><small>'+T.statsT+'</small></div><div class="p-kpi"><b>2m 05s</b><small>'+T.kAvg+'</small></div><div class="p-kpi"><b>'+(S.agenda.length+6)+'</b><small>'+T.kWeek+'</small></div><div class="p-kpi"><b>'+S.reqs.length+'</b><small>'+T.kReq+'</small></div></div>'
+      +'<div class="bars">'+base.map(function(v){return '<i style="height:'+(v/mx*100)+'%"></i>'}).join('')+'</div><div class="p-lbl">'+T.srcT+'</div>'
+      +[['Instagram',38],['Google',27],['Facebook',14],[T.direct,21]].map(function(s){return '<div class="srcrow"><span>'+s[0]+'</span><b>'+s[1]+'%</b></div><div class="srcbar"><i style="width:'+s[1]*2.4+'%"></i></div>'}).join('');
+  }
+  $('#panelScroll').innerHTML=h+'</div>';
+}
+function reqCard(r){
+  var st=r.state==='ok'?'<div class="state" style="color:#86efac">'+T.approved+'</div>':(r.state==='no'?'<div class="state" style="color:rgba(232,222,250,.5)">'+T.declined+'</div>':'<div class="acts"><button class="ok-b" data-ok="'+r.id+'">'+T.approve+'</button><button class="no-b" data-no="'+r.id+'">'+T.decline+'</button></div>');
+  return '<div class="req'+(r.state==='new'?' new':'')+(r.state==='ok'?' appr':'')+'"><b>'+esc(r.name)+'</b><small>'+esc(r.dayTxt)+' · '+r.time+'</small><br><span class="tag">'+esc(r.svc)+' · €'+r.price+'</span>'+st+'</div>';
+}
+function decide(id,ok){
+  var r=S.reqs.filter(function(x){return x.id==id})[0];if(!r)return;
+  r.state=ok?'ok':'no';
+  if(ok){S.agenda.push(r);S.booked[r.day]=(S.booked[r.day]||0)+1;doneStep(1)}
+  renderPanel();renderSite();
+  var newN=S.reqs.filter(function(x){return x.state==='new'}).length;var dot=$('#tabDot');dot.style.display=newN?'block':'none';dot.textContent=newN;
+}
+function savePrices(){
+  var base=SECTORS[S.sector].svc,changed=false;
+  S.prices=base.map(function(x,i){var v=Math.max(0,Math.min(9999,parseInt($('#eP'+i).value,10)||0));if(v!==x[1])changed=true;return v});
+  var t=$('#eTag').value.trim(),a=$('#eAnn').value.trim();
+  if(t!==T.tagline[S.sector])changed=true;S.tag=t;if(a!==T.ann)changed=true;S.ann=a;
+  renderSite();$('#eSaved').textContent=T.savedT;if(changed)doneStep(2);
+  if(innerWidth<900)setTimeout(function(){showPane('site')},1300);
+}
+function renderFinal(){$('#finTitle').innerHTML=T.finTitle(esc(bizName()));
+  var href='index.html?zaak='+encodeURIComponent(bizName())+'&sector='+S.sector+'&sl='+encodeURIComponent(T.sectors[S.sector])+'&lang='+lang+'#contact';
+  $('#finCta').href=href;$('#topCta').href=href;$('#mCta').href=href}
+function showPane(p){$$('.tabs button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-pane')===p)});$('#paneSite').classList.toggle('show',p==='site');$('#panePanel').classList.toggle('show',p==='panel');
+  if(p==='panel'){$('#tabDot').style.display='none'}}
+
+/* events */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var b;
+  if(b=t.closest('.lang-sw button')){lang=b.getAttribute('data-lang');try{localStorage.setItem('di-lang',lang)}catch(x){}renderStatic();return}
+  if(b=t.closest('[data-c]')){S.color=+b.getAttribute('data-c');applyColor();$$('#swatches button').forEach(function(x){x.classList.toggle('on',x===b)});return}
+  if(b=t.closest('[data-svc]')){S.svc=+b.getAttribute('data-svc');renderSite();return}
+  if(b=t.closest('[data-day]')){if(b.classList.contains('full'))return;S.day=b.getAttribute('data-day');S.time=null;renderSite();return}
+  if(b=t.closest('[data-time]')){S.time=b.getAttribute('data-time');var keepN=$('#cName')?$('#cName').value:'',keepP=$('#cPhone')?$('#cPhone').value:'';renderSite();$('#cName').value=keepN;$('#cPhone').value=keepP;return}
+  if(t.closest('#cSend')){sendBooking();return}
+  if(t.closest('#again')){S.done=false;renderSite();return}
+  if(t.closest('#unlock')||t.closest('#lock .fid')){var l=$('#lock');l.classList.add('scan');setTimeout(function(){l.classList.add('gone');S.unlocked=true;doneStep(1)},1000);return}
+  if(t.closest('#ptoast')){$('#ptoast').classList.remove('show');showPane('panel');window.scrollTo({top:$('.tabs').getBoundingClientRect().top+scrollY-10,behavior:'smooth'});return}
+  if(t.closest('#notif')){$('#notif').classList.remove('show');if(innerWidth<900)showPane('panel');return}
+  if(b=t.closest('[data-ptab]')){S.ptab=b.getAttribute('data-ptab');renderPanel();return}
+  if(b=t.closest('[data-ok]')){decide(b.getAttribute('data-ok'),true);return}
+  if(b=t.closest('[data-no]')){decide(b.getAttribute('data-no'),false);return}
+  if(t.closest('#eSave')){savePrices();return}
+  if(b=t.closest('.tabs button')){showPane(b.getAttribute('data-pane'));return}
+});
+$('#bizName').addEventListener('input',function(e){S.name=e.target.value;renderSite();renderPanel();renderFinal();renderWS()});
+$('#bizSector').addEventListener('change',function(e){S.sector=e.target.value;WSS.type=DEF_TYPE[S.sector]||'book';WSS.cart=0;S.prices=null;S.tag=null;S.svc=null;$('#bizName').placeholder=SECTORS[S.sector].n;renderSite();renderPanel();renderFinal();renderWS()});
+
+/* ===== WEBSITE DEMO ===== */
+var WS={
+ nl:{mSite:'Uw website',mBook:'Uw boekingssysteem',lStyle:'Stijl',lType:'Soort website',types:{book:'Met boeking',quote:'Met offerte',shop:'Webshop',port:'Portfolio',card:'Visitekaart'},quote:'Vraag offerte',shopBtn:'Shop nu',contactBtn:'Contact',addCart:'In mandje',added:'✓ Toegevoegd',checkout:'Afrekenen',checkoutMsg:'Demo: hier betaalt de klant met Bancontact, Payconiq of kaart.',qT:'Vraag een vrijblijvende offerte',qS:'Beschrijf uw project. U krijgt snel een duidelijke prijs.',qName:'Naam',qMail:'E-mail',qMsg:'Wat wilt u laten doen?',qPhoto:'+ Foto\'s toevoegen',qSend:'Verstuur aanvraag',qDone:'✓ Bedankt! Uw aanvraag is verstuurd.',realT:'Realisaties',shopT:'Nieuw in de winkel',shopS:'Online bestellen, thuis geleverd of afhalen.',portT:'Pakketten',free:'Gratis',cT:'Neem contact op',cS:'Stuur een bericht, ik antwoord binnen 24 uur.',cSend:'Verstuur',cardT:'Alles wat uw klant moet weten, op één pagina.',dComp:'Computer',dPhone:'Telefoon',styles:{elegant:'Elegant',fris:'Licht & fris',bold:'Krachtig'},
+  wsTry:'Probeer het boeken',wsCta:function(n){return 'Zo kan de website van <b>'+n+'</b> eruitzien. Klaar in enkele dagen.'},
+  nav:['Diensten','Werk','Over ons','Contact'],book:'Boek nu',see:'Bekijk ons werk',rating:'<b>★★★★★</b> Hier komen de reviews van uw klanten',
+  svcT:'Onze diensten',svcS:'Transparante prijzen, geen verrassingen.',galT:'Ons werk',galS:'Een greep uit wat we maakten.',aboutT:'Over ons',revT:'Wat klanten zeggen',revS:'Voorbeeld: hier komen de echte reviews van uw klanten.',
+  bookT:'Klaar voor uw afspraak?',bookS:'Kies zelf een dag en uur. U krijgt binnen enkele uren een bevestiging.',ctT:'Contact & openingsuren',
+  ci:[['Adres','Dorpsstraat 1, 2240 Zandhoven'],['Openingsuren','di–za · 9:00–18:00'],['Telefoon','+32 400 00 00 00']],foot:'Voorbeeldwebsite · ontworpen door Digital Ink',
+  revs:[['Super vriendelijk en heel professioneel. Online boeken ging in een minuut!','Sofie D.'],['Eindelijk een zaak waar je gewoon zelf een uur kunt kiezen. Topservice.','Kevin M.'],['Mooie zaak, warme ontvangst en het resultaat is prachtig.','Ilse V.']],
+  sec:{tattoo:{k:'Tattoo studio',h:'Kunst die je een leven lang meedraagt.',p:'Fine line, old school en realisme. Elk ontwerp op maat, in een hygiënische privéstudio.',a:'Elke tattoo begint met een gesprek. We nemen de tijd om uw idee om te zetten in een uniek ontwerp, en werken met de hoogste hygiënenormen.',g:['Fine line','Realisme','Old school','Lettering']},
+   hair:{k:'Kapsalon',h:'Uw haar, in vakkundige handen.',p:'Knippen, kleuren en verzorgen, met aandacht voor wat bij u past.',a:'Bij ons draait alles om advies op maat. We luisteren, adviseren eerlijk en werken met producten van topkwaliteit.',g:['Knippen','Kleuren','Balayage','Barber']},
+   beauty:{k:'Schoonheidssalon',h:'Even helemaal tot rust komen.',p:'Verzorging voor gezicht, handen en wimpers, in een rustige setting.',a:'Uw huid verdient aandacht. Elke behandeling start met een korte analyse, zodat we precies doen wat u nodig heeft.',g:['Gelaat','Manicure','Wimpers','Massage']},
+   coach:{k:'Praktijk',h:'Ruimte om te groeien.',p:'Begeleiding in een veilige, rustige omgeving, op uw tempo.',a:'Samen kijken we naar wat u bezighoudt en zoeken we stap voor stap naar rust en balans. Discreet en zonder oordeel.',g:['Gesprekken','Ademwerk','Wandelcoaching','Online']},
+   food:{k:'Bistro',h:'Seizoenskeuken met een glimlach.',p:'Lokale producten, eerlijke gerechten en een warme sfeer.',a:'Onze chef kookt met wat het seizoen brengt, van lokale boeren. Kom lunchen, dineren of vier uw feest bij ons.',g:['Lunch','Diner','Desserts','Wijnen']},
+   build:{k:'Bouw & renovatie',h:'Wij bouwen aan uw droomhuis.',p:'Renovatie, badkamers en nieuwbouw, met vakmanschap en een vaste prijs.',a:'Al jaren bouwen we met zorg aan woningen in de regio. U krijgt één aanspreekpunt, een duidelijke planning en eerlijke prijzen.',g:['Badkamers','Keukens','Renovatie','Nieuwbouw']},
+   shop:{k:'Boetiek',h:'Tijdloze stukken, met liefde gekozen.',p:'Mode en accessoires die lang meegaan. Online bestellen of afhalen in de winkel.',a:'Elk stuk in onze winkel is met zorg gekozen. We houden van kwaliteit, eerlijke materialen en persoonlijk advies.',g:['Nieuw','Tassen','Sjaals','Cadeaus']},
+   photo:{k:'Fotografie',h:'Momenten die blijven.',p:'Portretten, huwelijken en bedrijfsfoto\'s met een natuurlijke, tijdloze stijl.',a:'Ik fotografeer mensen zoals ze echt zijn. Rustig, ontspannen en met oog voor licht en detail.',g:['Portret','Huwelijk','Bedrijf','Familie']},
+   garage:{k:'Garage',h:'Uw auto in vertrouwde handen.',p:'Onderhoud, banden en herstellingen voor alle merken. Snel en eerlijk.',a:'Bij ons weet u vooraf wat het kost. We werken met kwaliteitsonderdelen en houden u op de hoogte.',g:['Onderhoud','Banden','Diagnose','Airco']},
+   health:{k:'Praktijk',h:'Opnieuw vrij bewegen.',p:'Kinesitherapie, sportrevalidatie en massage, persoonlijk begeleid.',a:'We nemen de tijd voor u. Elke behandeling start met een grondig onderzoek en een plan op maat.',g:['Revalidatie','Sport','Rugklachten','Massage']},
+   other:{k:'Uw zaak',h:'Kwaliteit waar u op kunt rekenen.',p:'Professionele service, persoonlijk advies en een warm welkom.',a:'Wij doen wat we beloven. Met jarenlange ervaring en veel aandacht voor elke klant.',g:['Service','Advies','Projecten','Team']}}},
+ en:{mSite:'Your website',mBook:'Your booking system',lStyle:'Style',lType:'Website type',types:{book:'With booking',quote:'With quotes',shop:'Webshop',port:'Portfolio',card:'Business card'},quote:'Get a quote',shopBtn:'Shop now',contactBtn:'Contact',addCart:'Add to cart',added:'✓ Added',checkout:'Checkout',checkoutMsg:'Demo: here the client pays with Bancontact, Payconiq or card.',qT:'Request a free quote',qS:'Describe your project. You get a clear price quickly.',qName:'Name',qMail:'Email',qMsg:'What would you like done?',qPhoto:'+ Add photos',qSend:'Send request',qDone:'✓ Thank you! Your request has been sent.',realT:'Projects',shopT:'New in store',shopS:'Order online, delivered or pick up.',portT:'Packages',free:'Free',cT:'Get in touch',cS:'Send a message, I reply within 24 hours.',cSend:'Send',cardT:'Everything your client needs to know, on one page.',dComp:'Computer',dPhone:'Phone',styles:{elegant:'Elegant',fris:'Light & fresh',bold:'Bold'},
+  wsTry:'Try booking',wsCta:function(n){return 'This is how the website of <b>'+n+'</b> could look. Ready in a few days.'},
+  nav:['Services','Work','About','Contact'],book:'Book now',see:'See our work',rating:'<b>★★★★★</b> Your clients\' reviews go here',
+  svcT:'Our services',svcS:'Transparent prices, no surprises.',galT:'Our work',galS:'A selection of what we made.',aboutT:'About us',revT:'What clients say',revS:'Example: your clients\' real reviews appear here.',
+  bookT:'Ready for your appointment?',bookS:'Pick a day and time yourself. You get a confirmation within a few hours.',ctT:'Contact & opening hours',
+  ci:[['Address','Dorpsstraat 1, 2240 Zandhoven'],['Opening hours','Tue–Sat · 9:00–18:00'],['Phone','+32 400 00 00 00']],foot:'Example website · designed by Digital Ink',
+  revs:[['Super friendly and very professional. Booking online took a minute!','Sofie D.'],['Finally a place where you can just pick a time yourself. Great service.','Kevin M.'],['Lovely place, warm welcome and a beautiful result.','Ilse V.']],
+  sec:{tattoo:{k:'Tattoo studio',h:'Art you carry for a lifetime.',p:'Fine line, old school and realism. Every design custom, in a hygienic private studio.',a:'Every tattoo starts with a conversation. We take the time to turn your idea into a unique design, with the highest hygiene standards.',g:['Fine line','Realism','Old school','Lettering']},
+   hair:{k:'Hair salon',h:'Your hair, in expert hands.',p:'Cuts, colour and care, tailored to what suits you.',a:'Everything here is about personal advice. We listen, advise honestly and work with top-quality products.',g:['Cuts','Colour','Balayage','Barber']},
+   beauty:{k:'Beauty salon',h:'Time to fully unwind.',p:'Care for face, hands and lashes, in a calm setting.',a:'Your skin deserves attention. Every treatment starts with a short analysis, so we do exactly what you need.',g:['Facial','Manicure','Lashes','Massage']},
+   coach:{k:'Practice',h:'Room to grow.',p:'Guidance in a safe, calm environment, at your own pace.',a:'Together we look at what is on your mind and work step by step towards calm and balance. Discreet and without judgement.',g:['Talks','Breathwork','Walk coaching','Online']},
+   food:{k:'Bistro',h:'Seasonal cooking with a smile.',p:'Local produce, honest dishes and a warm atmosphere.',a:'Our chef cooks with what the season brings, from local farmers. Come for lunch, dinner or celebrate with us.',g:['Lunch','Dinner','Desserts','Wines']},
+   build:{k:'Construction & renovation',h:'Building your dream home.',p:'Renovation, bathrooms and new builds, with craftsmanship and a fixed price.',a:'For years we have built homes in the region with care. You get one point of contact, a clear schedule and fair prices.',g:['Bathrooms','Kitchens','Renovation','New builds']},
+   shop:{k:'Boutique',h:'Timeless pieces, chosen with love.',p:'Fashion and accessories that last. Order online or pick up in store.',a:'Every piece in our shop is carefully chosen. We love quality, honest materials and personal advice.',g:['New','Bags','Scarves','Gifts']},
+   photo:{k:'Photography',h:'Moments that last.',p:'Portraits, weddings and business photos in a natural, timeless style.',a:'I photograph people as they really are. Calm, relaxed and with an eye for light and detail.',g:['Portrait','Wedding','Business','Family']},
+   garage:{k:'Garage',h:'Your car in trusted hands.',p:'Service, tyres and repairs for all brands. Fast and honest.',a:'With us you know the cost in advance. We use quality parts and keep you informed.',g:['Service','Tyres','Diagnostics','Air con']},
+   health:{k:'Practice',h:'Move freely again.',p:'Physiotherapy, sports rehab and massage, with personal guidance.',a:'We take time for you. Every treatment starts with a thorough assessment and a personal plan.',g:['Rehab','Sport','Back pain','Massage']},
+   other:{k:'Your business',h:'Quality you can count on.',p:'Professional service, personal advice and a warm welcome.',a:'We do what we promise. With years of experience and attention for every client.',g:['Service','Advice','Projects','Team']}}},
+ fr:{mSite:'Votre site',mBook:'Votre réservation',lStyle:'Style',lType:'Type de site',types:{book:'Avec réservation',quote:'Avec devis',shop:'Webshop',port:'Portfolio',card:'Carte de visite'},quote:'Demander un devis',shopBtn:'Acheter',contactBtn:'Contact',addCart:'Au panier',added:'✓ Ajouté',checkout:'Payer',checkoutMsg:'Démo : ici le client paie par Bancontact, Payconiq ou carte.',qT:'Demandez un devis gratuit',qS:'Décrivez votre projet. Vous recevez vite un prix clair.',qName:'Nom',qMail:'E-mail',qMsg:'Que souhaitez-vous faire ?',qPhoto:'+ Ajouter des photos',qSend:'Envoyer la demande',qDone:'✓ Merci ! Votre demande a été envoyée.',realT:'Réalisations',shopT:'Nouveautés',shopS:'Commandez en ligne, livré ou à retirer.',portT:'Formules',free:'Gratuit',cT:'Contactez-moi',cS:'Envoyez un message, je réponds sous 24 heures.',cSend:'Envoyer',cardT:'Tout ce que votre client doit savoir, sur une page.',dComp:'Ordinateur',dPhone:'Téléphone',styles:{elegant:'Élégant',fris:'Clair & frais',bold:'Audacieux'},
+  wsTry:'Essayer la réservation',wsCta:function(n){return 'Voici à quoi pourrait ressembler le site de <b>'+n+'</b>. Prêt en quelques jours.'},
+  nav:['Services','Réalisations','À propos','Contact'],book:'Réserver',see:'Voir nos réalisations',rating:'<b>★★★★★</b> Les avis de vos clients ici',
+  svcT:'Nos services',svcS:'Des prix transparents, sans surprise.',galT:'Nos réalisations',galS:'Un aperçu de notre travail.',aboutT:'À propos',revT:'Ce que disent nos clients',revS:'Exemple : les vrais avis de vos clients apparaissent ici.',
+  bookT:'Prêt pour votre rendez-vous ?',bookS:'Choisissez vous-même le jour et l\'heure. Confirmation en quelques heures.',ctT:'Contact & horaires',
+  ci:[['Adresse','Dorpsstraat 1, 2240 Zandhoven'],['Horaires','mar–sam · 9:00–18:00'],['Téléphone','+32 400 00 00 00']],foot:'Site d\'exemple · conçu par Digital Ink',
+  revs:[['Très accueillant et professionnel. Réserver en ligne a pris une minute !','Sofie D.'],['Enfin un endroit où l\'on choisit soi-même son heure. Super service.','Kevin M.'],['Bel endroit, accueil chaleureux et résultat magnifique.','Ilse V.']],
+  sec:{tattoo:{k:'Studio de tatouage',h:'Un art que l\'on porte toute sa vie.',p:'Fine line, old school et réalisme. Chaque design sur mesure, dans un studio privé et hygiénique.',a:'Chaque tatouage commence par un échange. Nous prenons le temps de transformer votre idée en un design unique, avec une hygiène irréprochable.',g:['Fine line','Réalisme','Old school','Lettrage']},
+   hair:{k:'Salon de coiffure',h:'Vos cheveux entre des mains expertes.',p:'Coupe, couleur et soins, adaptés à votre style.',a:'Ici, tout tourne autour du conseil personnalisé. Nous écoutons, conseillons honnêtement et utilisons des produits de qualité.',g:['Coupe','Couleur','Balayage','Barbier']},
+   beauty:{k:'Institut de beauté',h:'Un moment de pure détente.',p:'Soins du visage, des mains et des cils, dans un cadre apaisant.',a:'Votre peau mérite de l\'attention. Chaque soin commence par une courte analyse, pour faire exactement ce qu\'il vous faut.',g:['Visage','Manucure','Cils','Massage']},
+   coach:{k:'Cabinet',h:'De l\'espace pour grandir.',p:'Un accompagnement dans un cadre sûr et calme, à votre rythme.',a:'Ensemble, nous regardons ce qui vous préoccupe et avançons pas à pas vers le calme et l\'équilibre. Discret et sans jugement.',g:['Entretiens','Respiration','Coaching en marche','En ligne']},
+   food:{k:'Bistro',h:'Une cuisine de saison, avec le sourire.',p:'Produits locaux, plats honnêtes et ambiance chaleureuse.',a:'Notre chef cuisine ce que la saison apporte, auprès de producteurs locaux. Venez déjeuner, dîner ou fêter chez nous.',g:['Déjeuner','Dîner','Desserts','Vins']},
+   build:{k:'Construction & rénovation',h:'Nous bâtissons la maison de vos rêves.',p:'Rénovation, salles de bain et construction neuve, avec savoir-faire et prix fixe.',a:'Depuis des années, nous construisons avec soin dans la région. Un seul interlocuteur, un planning clair et des prix honnêtes.',g:['Salles de bain','Cuisines','Rénovation','Neuf']},
+   shop:{k:'Boutique',h:'Des pièces intemporelles, choisies avec amour.',p:'Mode et accessoires qui durent. Commandez en ligne ou retirez en boutique.',a:'Chaque pièce de notre boutique est choisie avec soin. Nous aimons la qualité, les matières honnêtes et le conseil personnalisé.',g:['Nouveautés','Sacs','Foulards','Cadeaux']},
+   photo:{k:'Photographie',h:'Des moments qui restent.',p:'Portraits, mariages et photos d\'entreprise dans un style naturel et intemporel.',a:'Je photographie les gens tels qu\'ils sont. Calme, détendu, avec un œil pour la lumière et le détail.',g:['Portrait','Mariage','Entreprise','Famille']},
+   garage:{k:'Garage',h:'Votre voiture entre de bonnes mains.',p:'Entretien, pneus et réparations toutes marques. Rapide et honnête.',a:'Chez nous, vous connaissez le prix à l\'avance. Pièces de qualité et suivi transparent.',g:['Entretien','Pneus','Diagnostic','Clim']},
+   health:{k:'Cabinet',h:'Bouger librement à nouveau.',p:'Kinésithérapie, revalidation sportive et massage, avec un suivi personnel.',a:'Nous prenons le temps pour vous. Chaque traitement commence par un bilan complet et un plan sur mesure.',g:['Revalidation','Sport','Dos','Massage']},
+   other:{k:'Votre entreprise',h:'Une qualité sur laquelle compter.',p:'Service professionnel, conseil personnalisé et accueil chaleureux.',a:'Nous faisons ce que nous promettons. Avec des années d\'expérience et de l\'attention pour chaque client.',g:['Service','Conseil','Projets','Équipe']}}}
+};
+var GAL_E=['✦','❖','✿','✺'],SEC_E={tattoo:'✒',hair:'✂',beauty:'✿',coach:'☾',food:'♨',build:'⌂',shop:'◈',photo:'◉',garage:'⚙',health:'✚',other:'★'};
+var WSS={style:'elegant',dev:'wide',mode:'site',type:'book',cart:0};
+function slug(n){return (n||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'').slice(0,28)||'uwzaak'}
+var DEF_TYPE={build:'quote',shop:'shop',photo:'port',other:'card'};
+function fp(p){return p===0?WS[lang].free:'€'+p}
+function siteHTML(cls){
+  var W=WS[lang],c=W.sec[S.sector],n=esc(bizName()),list=svcs(),e=SEC_E[S.sector],ty=WSS.type;
+  var ctaTxt={book:W.book,quote:W.quote,shop:W.shopBtn,port:W.contactBtn,card:W.contactBtn}[ty];
+  var ctaAttr=ty==='book'?'data-mode="book"':'data-goto="'+(ty==='quote'?'q':(ty==='shop'?'shop':'contact'))+'"';
+  var tile=function(g,i){var a=['135deg','200deg','45deg','310deg','160deg','20deg','260deg','90deg'][i%8];return '<div class="gs-tile" style="background:linear-gradient('+a+',var(--acc),color-mix(in srgb,var(--acc) '+(28+(i%4)*10)+'%,#000))"><span>'+GAL_E[i%4]+'</span>'+esc(g)+'</div>'};
+  var nav='<div class="gs-nav"><div class="gs-logo"><i>'+n.charAt(0).toUpperCase()+'</i>'+n+'</div><div class="gs-links">'+W.nav.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>'
+    +(ty==='shop'?'<button class="gs-btn alt" data-checkout>🛒 <b class="gs-cartn">'+(WSS.cart||0)+'</b></button>':'<button class="gs-btn" '+ctaAttr+'>'+ctaTxt+'</button>')+'</div>';
+  var hero='<div class="gs-hero"><span class="gs-kick">'+esc(c.k)+' · Zandhoven</span><h1>'+esc(c.h)+'</h1><p>'+esc(ty==='card'?W.cardT:c.p)+'</p><div class="row"><button class="gs-btn" '+ctaAttr+'>'+ctaTxt+'</button>'+(ty==='card'?'':'<button class="gs-btn alt" data-goto="gal">'+W.see+'</button>')+'</div>'+(ty==='card'?'':'<div class="gs-rating">'+W.rating+'</div>')+'</div>';
+  var svc='<div class="gs-sec"><h2 class="gs-h2">'+(ty==='port'?W.portT:W.svcT)+'</h2><p class="gs-sub">'+W.svcS+'</p><div class="gs-svcs">'+list.map(function(s){return '<div class="gs-svc"><em>'+e+'</em><h4>'+esc(s[0])+'</h4><b>'+(ty==='quote'&&s[1]>0?'<small style="font-size:12px;opacity:.7">'+(lang==='en'?'from ':(lang==='fr'?'dès ':'vanaf '))+'</small>':'')+fp(s[1])+'</b></div>'}).join('')+'</div></div>';
+  var shop='<div class="gs-sec" data-anchor="shop"><h2 class="gs-h2">'+W.shopT+'</h2><p class="gs-sub">'+W.shopS+'</p><div class="gs-svcs">'+list.concat(list.map(function(x){return [x[0]+' · '+(lang==='fr'?'édition':'edition')+' 2',Math.round(x[1]*1.2)]})).map(function(s,i){return '<div class="gs-svc" style="padding:0;overflow:hidden">'+tile(s[0],i).replace('class="gs-tile"','class="gs-tile" style="border-radius:0;aspect-ratio:4/3;background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 30%,#000))"')+'<div style="padding:14px 16px"><h4 style="margin:0 0 2px">'+esc(s[0])+'</h4><b>'+fp(s[1])+'</b><button class="gs-btn" data-cart style="display:block;width:100%;margin-top:10px;padding:10px">'+W.addCart+'</button></div></div>'}).join('')+'</div></div>';
+  var galN=ty==='port'?8:4, galL=ty==='port'?c.g.concat(c.g):c.g;
+  var gal='<div class="gs-sec" data-anchor="gal"><h2 class="gs-h2">'+(ty==='quote'?W.realT:W.galT)+'</h2><p class="gs-sub">'+W.galS+'</p><div class="gs-gal">'+galL.slice(0,galN).map(tile).join('')+'</div></div>';
+  var about='<div class="gs-sec"><div class="gs-about"><div class="pic">'+e+'</div><div><h2 class="gs-h2" style="text-align:left">'+W.aboutT+'</h2><p>'+esc(c.a)+'</p></div></div></div>';
+  var revs='<div class="gs-sec"><h2 class="gs-h2">'+W.revT+'</h2><p class="gs-sub">'+W.revS+'</p><div class="gs-revs">'+W.revs.map(function(r){return '<div class="gs-rev"><div class="stars">★★★★★</div><p>“'+r[0]+'”</p><b>'+r[1]+'</b></div>'}).join('')+'</div></div>';
+  var book='<div class="gs-book"><h3>'+W.bookT+'</h3><p>'+W.bookS+'</p><button class="gs-btn" data-mode="book">'+W.book+'</button></div>';
+  var form=function(anchor,title,sub,msg,btn,photo){return '<div class="gs-book" data-anchor="'+anchor+'" style="text-align:left"><h3 style="text-align:center">'+title+'</h3><p style="text-align:center">'+sub+'</p><div style="max-width:440px;margin:0 auto" class="gs-form"><input class="f" placeholder="'+W.qName+'" style="background:var(--card);color:var(--fg);border-color:var(--bd)"><input class="f" placeholder="'+W.qMail+'" style="background:var(--card);color:var(--fg);border-color:var(--bd)"><textarea class="f" placeholder="'+msg+'" style="min-height:80px;background:var(--card);color:var(--fg);border-color:var(--bd)"></textarea>'+(photo?'<div style="padding:12px;border:1px dashed var(--bd);border-radius:10px;text-align:center;color:var(--mu);font-size:12px;margin-bottom:8px">'+W.qPhoto+'</div>':'')+'<button class="gs-btn" data-qsend style="width:100%">'+btn+'</button></div></div>'};
+  var contact='<div class="gs-sec" data-anchor="contact" style="padding-top:0"><h2 class="gs-h2">'+W.ctT+'</h2><p class="gs-sub"></p><div class="gs-contact">'+W.ci.map(function(x){return '<div class="gs-ci"><small>'+x[0]+'</small>'+x[1]+'</div>'}).join('')+'<div class="gs-map">📍</div></div></div>';
+  var body={
+    book:hero+svc+gal+about+revs+book+contact,
+    quote:hero+svc+gal+revs+form('q',W.qT,W.qS,W.qMsg,W.qSend,true)+contact,
+    shop:hero+shop+about+revs+contact,
+    port:hero+gal+svc+about+revs+form('contact',W.cT,W.cS,W.qMsg,W.cSend,false),
+    card:hero+svc+contact
+  }[ty];
+  return '<div class="gs '+WSS.style+' '+cls+'">'+nav+body
+   +'<div class="gs-foot">© '+new Date().getFullYear()+' '+n+' · '+W.foot+'</div>'
+   +'<div class="gs-wa"><svg viewBox="0 0 24 24"><path d="M12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89S18.6 0 12.05 0z"/></svg></div>'
+   +'</div>';
+}
+function renderWS(){
+  var W=WS[lang];
+  $$('[data-i]').forEach(function(e){var v=W[e.getAttribute('data-i')];if(typeof v==='string')e.innerHTML=v});
+  $('#typeChips').innerHTML=Object.keys(W.types).map(function(k){return '<button data-type="'+k+'" class="'+(WSS.type===k?'on':'')+'">'+W.types[k]+'</button>'}).join('');
+  $('#styleChips').innerHTML=Object.keys(W.styles).map(function(k){return '<button data-style="'+k+'" class="'+(WSS.style===k?'on':'')+'">'+W.styles[k]+'</button>'}).join('');
+  $$('#devChips button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-dev')===WSS.dev)});
+  $('#wsStage').className=WSS.dev==='narrow'?'dev-phone':'';
+  var w=$('#wsWide'),nn=$('#wsNarrow'),t1=w.scrollTop,t2=nn.scrollTop;
+  w.innerHTML=siteHTML('wide');nn.innerHTML=siteHTML('narrow');w.scrollTop=t1;nn.scrollTop=t2;
+  $('#wsUrl').innerHTML='<b>🔒</b>www.'+slug(bizName())+'.be';
+  $('#wsCtaTxt').innerHTML=W.wsCta(esc(bizName()));
+  var f=$('#finCta');$('#wsCta').href=f?f.href:'index.html#contact';
+}
+function alertBox(root,msg){if(!root)return;var d=document.createElement('div');d.textContent=msg;d.style.cssText='position:sticky;top:60px;z-index:9;margin:10px auto;max-width:420px;padding:14px 16px;border-radius:14px;background:var(--acc);color:#120c05;font-weight:700;font-size:13px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.35)';root.insertBefore(d,root.children[1]);setTimeout(function(){d.remove()},3500)}
+function setMode(m){WSS.mode=m;$$('#modes button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-mode')===m)});
+  $('#modeSite').style.display=m==='site'?'':'none';$('#modeBook').style.display=m==='book'?'':'none';
+  if(m==='book'){var y=$('#modes').getBoundingClientRect().top+scrollY-10;window.scrollTo({top:y,behavior:'smooth'})}}
+document.addEventListener('click',function(e){var b;
+  if(b=e.target.closest('[data-mode]')){setMode(b.getAttribute('data-mode'));return}
+  if(b=e.target.closest('[data-style]')){WSS.style=b.getAttribute('data-style');renderWS();return}
+  if(b=e.target.closest('[data-type]')){WSS.type=b.getAttribute('data-type');WSS.cart=0;renderWS();return}
+  if(b=e.target.closest('[data-goto]')){var root=b.closest('.gs'),t=root&&root.querySelector('[data-anchor="'+b.getAttribute('data-goto')+'"]');if(t){var sc=root.closest('.b-view,.scroll');if(sc&&sc.scrollHeight>sc.clientHeight+5&&getComputedStyle(sc).overflowY!=='visible'){sc.scrollTo({top:t.offsetTop-60,behavior:'smooth'})}else{t.scrollIntoView({behavior:'smooth',block:'start'})}}return}
+  if(b=e.target.closest('[data-cart]')){WSS.cart=(WSS.cart||0)+1;$$('.gs-cartn').forEach(function(x){x.textContent=WSS.cart});b.textContent=WS[lang].added;return}
+  if(b=e.target.closest('[data-checkout]')){alertBox(b.closest('.gs'),WS[lang].checkoutMsg);return}
+  if(b=e.target.closest('[data-qsend]')){var fm=b.closest('.gs-form');fm.innerHTML='<p style="text-align:center;color:var(--acc);font-weight:700;padding:20px 0">'+WS[lang].qDone+'</p>';return}
+  if(b=e.target.closest('[data-dev]')){WSS.dev=b.getAttribute('data-dev');renderWS();return}
+},true);
+
+/* start */
+(function(){
+  var q=new URLSearchParams(location.search);
+  var saved=null;try{saved=localStorage.getItem('di-lang')}catch(e){}
+  var nav=(navigator.language||'nl').slice(0,2);lang=q.get('lang')||saved||(nav==='fr'?'fr':(nav==='en'?'en':'nl'));if(!L[lang])lang='nl';
+  if(q.get('zaak')){S.name=q.get('zaak').slice(0,40);$('#bizName').value=S.name}
+  if(q.get('sector')&&SECTORS[q.get('sector')])S.sector=q.get('sector');
+  else if(q.get('type')){S.sector={shop:'shop',port:'photo',quote:'build',card:'other',book:'hair'}[q.get('type')]||S.sector}
+  if(q.get('kleur')&&COLORS[+q.get('kleur')])S.color=+q.get('kleur');
+  WSS.type=(q.get('type')&&{book:1,quote:1,shop:1,port:1,card:1}[q.get('type')])?q.get('type'):(DEF_TYPE[S.sector]||'book');
+  var d=new Date();d.setDate(d.getDate()+3);var key=d.toISOString().slice(0,10);
+  S.reqs.push({id:1,name:'Lars V.',svc:svcName(SECTORS[S.sector].svc[1][0]),price:SECTORS[S.sector].svc[1][1],day:key,dayTxt:'',time:'11:30',state:'new'});
+  applyColor();T=L[lang];S.reqs[0].dayTxt=fmtDay(d);
+  renderStatic();
+})();
+</script>
+</body>
+</html>
